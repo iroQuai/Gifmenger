@@ -24,7 +24,7 @@ from twython import Twython # twitter library
 ### System Config ###
 ########################
 
-post_online_now = 0  # default 0. Change to 1 if you want to upload pics IMMEDIATELY
+post_online_now = 1  # default 0. Change to 1 if you want to upload pics IMMEDIATELY
 post_online_idle = 1 # default 1. change to 0 if you dont want to upload pics even when idle
 backup_pics = 1  # backup pics = 1, no backup, change to 0
 fullscreen = 0  # set pygame to be fullscreen or not - useful for debugging
@@ -47,7 +47,7 @@ pixel_width = 800
 pixel_height = 600
 
 camera_vflip = False
-camera_hflip = False
+camera_hflip = True
 
 total_pics = 4  # number of pics to be taken
 capture_delay = 1  # delay between pics
@@ -98,7 +98,7 @@ twitter_api = Twython(
     config.twitter_ACCESS_SECRET,
 )
 
-hashtags = "#Clarl2016"
+hashtags = "#gifmengsel #test"
 
 statuses = [
     "Beep Boop! I was programmed to love!",
@@ -131,7 +131,7 @@ uploading_indicator_pin = 27   #
 
 Start_Photobooth_pin = 23  # pin for the big red button to start the photobooth going
 Exit_Photobooth_pin = 24   # pin for button to end program
-button3_pin = 17  # extra button for something
+button3_pin = 25  # extra button for something
 
 GPIO.setmode(GPIO.BCM)  # use the normal wiring numbering
 GPIO.setwarnings(False)  # ignore warnings if cleanup didnt run somehow
@@ -555,10 +555,10 @@ led_all_off()
 # else is happening in the program, their function will be run
 
 # Shut down Pi
-#GPIO.add_event_detect(button3_pin, GPIO.FALLING, callback=shut_it_down, bouncetime=300)
+GPIO.add_event_detect(button3_pin, GPIO.FALLING, callback=shut_it_down, bouncetime=300)
 
 # Button to close python
-GPIO.add_event_detect(Exit_Photobooth_pin, GPIO.FALLING, callback=exit_photobooth, bouncetime=2000) #use third button to exit python. Good while developing
+GPIO.add_event_detect(Exit_Photobooth_pin, GPIO.FALLING, callback=exit_photobooth, bouncetime=2000) #use button to exit python. Good while developing
 
 # Start Photobooth
 GPIO.add_event_detect(Start_Photobooth_pin, GPIO.FALLING, callback=photobooth_callback, bouncetime=300) #button to start photobooth
