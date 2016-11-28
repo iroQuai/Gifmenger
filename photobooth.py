@@ -481,7 +481,7 @@ def start_photobooth(self):
 
     needtobackup = 1
     if post_online_now:  # turn off posting pics online in the variable declarations at the top of this document
-        print "Uploading to twitter Please check @ClarlPhoto soon."
+        print "Uploading to twitter Please check @Gifmengsels soon."
         show_image(real_path + "/assets/uploading.png",screen)
         connected = is_connected() # check to see if you have an internet connection
         if not connected:
