@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# editted by gifmenger@stijnbiemans.nl 
 # created by steve@stevesiden.com
 # modified from chris@drumminhands.com
 # see instructions at http://www.drumminhands.com/2014/06/15/raspberry-pi-photo-booth/
@@ -27,7 +28,7 @@ from twython import Twython # twitter library
 post_online_now = 1  # default 0. Change to 1 if you want to upload pics IMMEDIATELY
 post_online_idle = 1 # default 1. change to 0 if you dont want to upload pics even when idle
 backup_pics = 1  # backup pics = 1, no backup, change to 0
-fullscreen = 0  # set pygame to be fullscreen or not - useful for debugging
+fullscreen = 1  # set pygame to be fullscreen or not - useful for debugging
 real_path = os.path.dirname(os.path.realpath(__file__)) # path of code for references to pictures
 idle_time = 20  # time in seconds to wait to idle stuff
 missedfile_appendix = "-FILENOTUPLOADED" # thing added to end of file if it wasnt uploaded
