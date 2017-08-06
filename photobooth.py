@@ -124,6 +124,8 @@ countdown_led3_pin = 4  #
 
 countdown_array = [ countdown_led1_pin, countdown_led2_pin, countdown_led3_pin]
 
+idle_led_pin = 12 # voor de rode knop + evt 'klaar voor gebruik' lampje
+
 photo_indicator_pin = 17  # 
 processing_indicator_pin = 22  # 
 uploading_indicator_pin = 27   #
@@ -167,6 +169,7 @@ def led_init():
     GPIO.setup(photo_indicator_pin,GPIO.OUT)
     GPIO.setup(processing_indicator_pin,GPIO.OUT)
     GPIO.setup(uploading_indicator_pin,GPIO.OUT)
+    GPIO.setup(idle_led_pin,GPIO.OUT)
 
 def led_all_off():
     # set all low
@@ -176,7 +179,7 @@ def led_all_off():
     GPIO.output(photo_indicator_pin,0)
     GPIO.output(processing_indicator_pin,0)
     GPIO.output(uploading_indicator_pin,0)
-
+    GPIO.output(idle_led_pin,0)
 
 def led_all_on():
     # set all low
@@ -186,7 +189,7 @@ def led_all_on():
     GPIO.output(photo_indicator_pin,1)
     GPIO.output(processing_indicator_pin,1)
     GPIO.output(uploading_indicator_pin,1)
-
+    GPIO.output(idle_led_pin,1)
 
 def exit_photobooth(self):
     print "Photo booth app ended. RPi still running"
@@ -415,11 +418,13 @@ def photobooth_callback(self):
 def start_photobooth(self):
     global photobooth_in_use
     photobooth_in_use = True # set global variable in use
+    GPIO.output(idle_led_pin,1)
     ################################# Begin Step 1 #################################
     screen = init_pygame() # start pygame screen
     
     show_image(real_path + "/assets/blank.png",screen) # show blank screen when loading
     print "Get Ready"
+    GPIO.output(idle_led_pin,0) #idle knop uitzetten
     #GPIO.output(photo_indicator_pin, False)  #turn big led off
 
     show_image(real_path + "/assets/instructions.png", screen) # display instructions - this saying takes 4 photos etc.
@@ -508,7 +513,7 @@ def start_photobooth(self):
             print('Something went wrong. Could not write file.')
             #sys.exit(0) # quit Python
 
-    # turn of the leds now
+    # turn off the leds now
 
     GPIO.output(processing_indicator_pin, False)  # turn on the LED
     GPIO.output(uploading_indicator_pin, False)  # turn on the LED
@@ -532,6 +537,7 @@ def start_photobooth(self):
     time.sleep(restart_delay)
     pygame.quit()  # we are done with this instance of pygame
     show_image(real_path + "/assets/intro.png")
+    GPIO.output(idle_led_pin,1) #idle knop aanzetten
     #GPIO.output(photo_indicator_pin, True)  # turn on the LED
     photobooth_in_use = False
     
