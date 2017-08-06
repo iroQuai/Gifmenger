@@ -418,13 +418,13 @@ def photobooth_callback(self):
 def start_photobooth(self):
     global photobooth_in_use
     photobooth_in_use = True # set global variable in use
-    GPIO.output(idle_led_pin,1)
+    GPIO.output(idle_led_pin, True)
     ################################# Begin Step 1 #################################
     screen = init_pygame() # start pygame screen
     
     show_image(real_path + "/assets/blank.png",screen) # show blank screen when loading
     print "Get Ready"
-    GPIO.output(idle_led_pin,0) #idle knop uitzetten
+    GPIO.output(idle_led_pin, False) #idle knop uitzetten
     #GPIO.output(photo_indicator_pin, False)  #turn big led off
 
     show_image(real_path + "/assets/instructions.png", screen) # display instructions - this saying takes 4 photos etc.
