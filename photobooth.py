@@ -124,8 +124,6 @@ countdown_led3_pin = 4  #
 
 countdown_array = [ countdown_led1_pin, countdown_led2_pin, countdown_led3_pin]
 
-idle_led_pin = 12 # voor de rode knop + evt 'klaar voor gebruik' lampje
-
 photo_indicator_pin = 17  # 
 processing_indicator_pin = 22  # 
 uploading_indicator_pin = 27   #
@@ -169,8 +167,7 @@ def led_init():
     GPIO.setup(photo_indicator_pin,GPIO.OUT)
     GPIO.setup(processing_indicator_pin,GPIO.OUT)
     GPIO.setup(uploading_indicator_pin,GPIO.OUT)
-    GPIO.setup(idle_led_pin,GPIO.OUT)
-
+ 
 def led_all_off():
     # set all low
     GPIO.output(countdown_led1_pin,0)
@@ -179,8 +176,7 @@ def led_all_off():
     GPIO.output(photo_indicator_pin,0)
     GPIO.output(processing_indicator_pin,0)
     GPIO.output(uploading_indicator_pin,0)
-    GPIO.output(idle_led_pin,0)
-
+ 
 def led_all_on():
     # set all low
     GPIO.output(countdown_led1_pin,1)
@@ -189,8 +185,7 @@ def led_all_on():
     GPIO.output(photo_indicator_pin,1)
     GPIO.output(processing_indicator_pin,1)
     GPIO.output(uploading_indicator_pin,1)
-    GPIO.output(idle_led_pin,1)
-
+ 
 def exit_photobooth(self):
     print "Photo booth app ended. RPi still running"
     led_all_on()
@@ -418,13 +413,11 @@ def photobooth_callback(self):
 def start_photobooth(self):
     global photobooth_in_use
     photobooth_in_use = True # set global variable in use
-    GPIO.output(idle_led_pin, True)
-    ################################# Begin Step 1 #################################
+        ################################# Begin Step 1 #################################
     screen = init_pygame() # start pygame screen
     
     show_image(real_path + "/assets/blank.png",screen) # show blank screen when loading
     print "Get Ready"
-    GPIO.output(idle_led_pin, False) #idle knop uitzetten
     GPIO.output(photo_indicator_pin, False)  #turn big led off
 
     show_image(real_path + "/assets/instructions.png", screen) # display instructions - this saying takes 4 photos etc.
