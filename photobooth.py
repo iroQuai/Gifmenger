@@ -425,7 +425,7 @@ def start_photobooth(self):
     show_image(real_path + "/assets/blank.png",screen) # show blank screen when loading
     print "Get Ready"
     GPIO.output(idle_led_pin, False) #idle knop uitzetten
-    #GPIO.output(photo_indicator_pin, False)  #turn big led off
+    GPIO.output(photo_indicator_pin, False)  #turn big led off
 
     show_image(real_path + "/assets/instructions.png", screen) # display instructions - this saying takes 4 photos etc.
 
@@ -538,7 +538,7 @@ def start_photobooth(self):
     pygame.quit()  # we are done with this instance of pygame
     show_image(real_path + "/assets/intro.png")
     GPIO.output(idle_led_pin,1) #idle knop aanzetten
-    #GPIO.output(photo_indicator_pin, True)  # turn on the LED
+    GPIO.output(photo_indicator_pin, True)  # turn on the LED
     photobooth_in_use = False
     
 
@@ -608,7 +608,7 @@ led_all_off()
 show_image(real_path + "/assets/intro.png")
 
 #turn on the LED in the big button
-#GPIO.output(photo_indicator_pin, True)
+GPIO.output(photo_indicator_pin, True)
 
 tstart = time.time()
 
