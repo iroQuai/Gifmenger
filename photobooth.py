@@ -61,8 +61,8 @@ restart_delay = 10  # how long to display finished message before beginning a ne
 ########################
 
 gif_delay = 25  # How much time between frames in the animated gif - in 100ths of second
-gif_width = 640  #  dimensions of the gif to be uploaded - based on the maximum size twitter allows, make integer scale factor of the image resolution for faster scaling
-gif_height = 480
+gif_width = 648  #  dimensions of the gif to be uploaded - based on the maximum size twitter allows, make integer scale factor of the image resolution for faster scaling
+gif_height = 365
 
 ########################
 ### Monitor Config ###
