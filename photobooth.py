@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# editted by gifmenger@stijnbiemans.nl 
+# editted by gifmenger@stijnbiemans.nl
 # created by steve@stevesiden.com
 # modified from chris@drumminhands.com
 # see instructions at http://www.drumminhands.com/2014/06/15/raspberry-pi-photo-booth/
@@ -44,8 +44,8 @@ time_gap=1 # debounce time - duration before photos can be taken again
 # 2592x1944 1296x972 1296x730 640x480 - use one of these to keep sensor full size
 # this is 1.25 size of 640x480 - this allows keeps correct aspect ratio but maximises the use of the screen.
 # images resized by gpu when taking picture as its quicker
-pixel_width = 800
-pixel_height = 600
+pixel_width = 1296
+pixel_height = 730
 
 camera_vflip = False
 camera_hflip = True
@@ -68,8 +68,8 @@ gif_height = 480
 ### Monitor Config ###
 ########################
 
-monitor_w = 1024  #1024 # this is res of makibes 7" screen
-monitor_h = 600  #600
+monitor_w = 1280  #1024 # this is res of makibes 7" screen
+monitor_h = 720  #600
 replay_delay = (1.0 * gif_delay) / 100  # how much to wait in-between showing pics on-screen after taking
 replay_cycles = 3  # how many times to show each photo on-screen after taking
 
@@ -99,17 +99,17 @@ twitter_api = Twython(
     config.twitter_ACCESS_SECRET,
 )
 
-hashtags = "#gifmengsel #test"
+hashtags = "#gifmenger"
 
 statuses = [
-    "Beep Boop! I was programmed to love!",
-    "Weddings are fun! Beep Boop!",
+    "Beep Boop! I was programmed to test!",
+    "gifmengers are fun! Beep Boop!",
     "Beep Boop! A memento of the day!",
     "Don't they look great!?",
     "I'm ready for my close up",
-    "Smile! You're on Clarl cam!",
+    "Smile! You're on gifmenger cam!",
     "Say cheese! You're crackers!",
-    "I heart Clarl!"
+    "I heart gifmenger!"
 ]
 
 ####################
@@ -167,7 +167,7 @@ def led_init():
     GPIO.setup(photo_indicator_pin,GPIO.OUT)
     GPIO.setup(processing_indicator_pin,GPIO.OUT)
     GPIO.setup(uploading_indicator_pin,GPIO.OUT)
- 
+
 def led_all_off():
     # set all low
     GPIO.output(countdown_led1_pin,0)
@@ -176,7 +176,8 @@ def led_all_off():
     GPIO.output(photo_indicator_pin,0)
     GPIO.output(processing_indicator_pin,0)
     GPIO.output(uploading_indicator_pin,0)
- 
+
+
 def led_all_on():
     # set all low
     GPIO.output(countdown_led1_pin,1)
@@ -185,7 +186,8 @@ def led_all_on():
     GPIO.output(photo_indicator_pin,1)
     GPIO.output(processing_indicator_pin,1)
     GPIO.output(uploading_indicator_pin,1)
- 
+
+
 def exit_photobooth(self):
     print "Photo booth app ended. RPi still running"
     led_all_on()
@@ -413,7 +415,7 @@ def photobooth_callback(self):
 def start_photobooth(self):
     global photobooth_in_use
     photobooth_in_use = True # set global variable in use
-        ################################# Begin Step 1 #################################
+    ################################# Begin Step 1 #################################
     screen = init_pygame() # start pygame screen
     
     show_image(real_path + "/assets/blank.png",screen) # show blank screen when loading
@@ -506,7 +508,7 @@ def start_photobooth(self):
             print('Something went wrong. Could not write file.')
             #sys.exit(0) # quit Python
 
-    # turn off the leds now
+    # turn of the leds now
 
     GPIO.output(processing_indicator_pin, False)  # turn on the LED
     GPIO.output(uploading_indicator_pin, False)  # turn on the LED
@@ -530,7 +532,6 @@ def start_photobooth(self):
     time.sleep(restart_delay)
     pygame.quit()  # we are done with this instance of pygame
     show_image(real_path + "/assets/intro.png")
-    GPIO.output(idle_led_pin,1) #idle knop aanzetten
     GPIO.output(photo_indicator_pin, True)  # turn on the LED
     photobooth_in_use = False
     
@@ -555,10 +556,10 @@ led_all_off()
 # else is happening in the program, their function will be run
 
 # Shut down Pi
-GPIO.add_event_detect(button3_pin, GPIO.FALLING, callback=shut_it_down, bouncetime=300)
+#GPIO.add_event_detect(button3_pin, GPIO.FALLING, callback=shut_it_down, bouncetime=300)
 
 # Button to close python
-GPIO.add_event_detect(Exit_Photobooth_pin, GPIO.FALLING, callback=exit_photobooth, bouncetime=2000) #use button to exit python. Good while developing
+GPIO.add_event_detect(Exit_Photobooth_pin, GPIO.FALLING, callback=exit_photobooth, bouncetime=2000) #use third button to exit python. Good while developing
 
 # Start Photobooth
 GPIO.add_event_detect(Start_Photobooth_pin, GPIO.FALLING, callback=photobooth_callback, bouncetime=300) #button to start photobooth
